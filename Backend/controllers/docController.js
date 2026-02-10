@@ -76,6 +76,12 @@ const processPDF = async(id , filePath)=>{
         }
 }
 
+
+// countDocuments() is efficient if you only want counts per document. while
+// using loopup Fetches all documents for a user along with flashcard/quiz counts in one aggregation query.
+// Good if you want counts for multiple documents at once.
+
+
 const  getDocuments = async(req , res)=>{
     try{
       const documents = await docModel.aggregate([

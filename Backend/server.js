@@ -10,6 +10,8 @@ import authRoutes from "./routes/authRoutes.js";
 import docRoutes from "./routes/docRoutes.js";
 import AIRoutes from "./routes/aiRoutes.js";
 import flashcardRoutes from "./routes/flashcardRoutes.js";
+import quizRoutes from "./routes/quizRoutes.js";
+import progressRoutes from "./routes/progressRoute.js"
 
 
 // ES6 modules dirname alternatives
@@ -49,6 +51,8 @@ app.use("/api/auth" , authRoutes)
 app.use("/api/documents" , docRoutes)
 app.use("/api/flashcards" , flashcardRoutes)
 app.use("/api/ai" , AIRoutes)
+app.use("/api/quiz", quizRoutes)
+app.use("/api/getProgress" , progressRoutes)
 
 // 404 error handler
 app.use((req , res)=>{

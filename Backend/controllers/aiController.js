@@ -52,6 +52,7 @@ const generateFlashcards = async (req , res) => {
     }
 }
 
+
 const generateQuiz = async (req , res) => {
     try{
         const {documentId , numQuestions = 5 , title} = req.body
@@ -99,6 +100,7 @@ const generateQuiz = async (req , res) => {
         })
     }
 }
+
 
 const generateSummary = async (req , res) => {
     try{
