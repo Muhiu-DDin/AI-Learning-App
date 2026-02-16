@@ -56,7 +56,7 @@ const generateFlashcards = async (req , res) => {
 const generateQuiz = async (req , res) => {
     try{
         const {documentId , numQuestions = 5 , title} = req.body
-        if(!documentId) return res.status(400).json({success : false , message : "document id is required"})
+        if(!documentId || !title) return res.status(400).json({success : false , message : "fields are required"})
         const doc = await docModel.findOne({
                 userId : req.user._id ,
                 _id : documentId , 
@@ -82,7 +82,7 @@ const generateQuiz = async (req , res) => {
                     question : quiz.question ,
                     options : quiz.options , 
                     correctAnswer : quiz.correctAnswer,
-                    explaination : quiz.explanation , 
+                    explaination : quiz.explaination , 
                     difficulty : quiz.difficulty,
                 } 
             )) ,
@@ -154,7 +154,7 @@ const chat = async (req , res) => {
 
 
        const relevantChunks = await findRelevantChunks(document.chunks , question , 3)
-       const chunkIndces = relevantChunks.map(chunk => chunk.chunkIndex)
+       const chunkIndices = relevantChunks.map(chunk => chunk.chunkIndex)
 
     //    save the chat history 
 
@@ -184,7 +184,7 @@ const chat = async (req , res) => {
 
             role : 'assistant' , 
             content : answer , 
-            relevantChunks : chunkIndces
+            relevantChunks : chunkIndices
         }  )
 
         await chatHistory.save()
@@ -251,17 +251,18 @@ const explainConcept = async (req , res) => {
 
 const getChatHistory = async (req , res) => {
     try{
-        const {documentId} = req.body
-        if(!documentId ) return res.status(400).json({success : false , message : "fields are required"})
+        const {docId} = req.params
+        if(!docId) return res.status(400).json({success : false , message : "fields are required"})
+            // only want the messages field in the result
         const history = await chatHistoryModel.findOne({
         userId : req.user._id , 
-        documentId ,
+        documentId :  docId ,
         }).select("messages")
        
         if(!history){
           return res.status(400).json({
             success: false,
-            message: "histroy not found",
+            message: "history not found",
             });
         }
 

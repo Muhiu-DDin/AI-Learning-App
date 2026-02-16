@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-    baseURL : "http://localhost:8000",
+    baseURL : "http://localhost:8000/api/",
     // timeout is the maximum time in milisecond Axios will wait for a response from the server.
     timeout : 80000 , 
     headers : {

@@ -1,5 +1,6 @@
 import express from 'express'
 import authMiddleware from "../middleware/authMiddleware.js"
+import { getAllQuizzes , getQuiz , submitQuiz , getQuizResult , deleteQuiz} from '../controllers/quizController.js'
 
 const quizRoutes = express.Router()
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import { useEffect } from 'react'
 import {Navigate, Route , Routes} from "react-router-dom"
-import useUser from './context/authcontext'
 import { Loader2 } from "lucide-react";
+import useUser from './context/AuthContext';
 import LoginPage from "./pages/Auth/LoginPage"
 import RegisterPage from "./pages/Auth/RegisterPage"
 import NotFoundPage from './pages/NotFoundPage';
@@ -16,7 +16,12 @@ import ProfilePage from "./pages/Profile/ProfilePage"
 
 function App() {
 
-  const {isCheckingAuth , authUser} = useUser()
+  const {isCheckingAuth , authUser , getAuth} = useUser()
+
+  useEffect(()=>{
+      getAuth()
+  } , [getAuth])
+
 
   if (isCheckingAuth && !authUser) {
     return (
@@ -25,7 +30,6 @@ function App() {
       </div>
     );
 }
-
 
   return (
     <Routes>

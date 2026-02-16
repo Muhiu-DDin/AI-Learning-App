@@ -93,14 +93,14 @@ ${text.substring(0, 15000)}`;
 
     for (const block of questionBlocks) {
       const lines = block.trim().split('\n');
-      let question = '', options = [], correctAnswer = '', explanation = '', difficulty = 'medium';
+      let question = '', options = [], correctAnswer = '', explaination = '', difficulty = 'medium';
 
       for (const line of lines) {
         const trimmed = line.trim();
         if (trimmed.startsWith('Q:')) question = trimmed.substring(2).trim();
         else if (/^(01|02|03|04):/.test(trimmed)) options.push(trimmed.substring(3).trim());
         else if (trimmed.startsWith('C:')) correctAnswer = trimmed.substring(2).trim();
-        else if (trimmed.startsWith('E:')) explanation = trimmed.substring(2).trim();
+        else if (trimmed.startsWith('E:')) explaination = trimmed.substring(2).trim();
         else if (trimmed.startsWith('D:')) {
           const diff = trimmed.substring(2).trim().toLowerCase();
           if (['easy', 'medium', 'hard'].includes(diff)) difficulty = diff;
@@ -109,7 +109,7 @@ ${text.substring(0, 15000)}`;
 
       // Only push if exactly 4 options and question + correct answer exist
       if (question && options.length === 4 && correctAnswer) {
-        questions.push({ question, options, correctAnswer, explanation, difficulty });
+        questions.push({ question, options, correctAnswer, explaination, difficulty });
       }
     }
 

@@ -3,7 +3,7 @@ import docModel from "../models/docModel.js";
 import flashcardModel from "../models/flashcardModel.js";
 
 
-export const getDashboard = async (req , res) => {
+const getDashboard = async (req , res) => {
     try{
         const totalDoc = await docModel.countDocuments({userId : req.user._id})
         const totalFlashcardSet = await flashcardModel.countDocuments({userId : req.user._id})
@@ -70,3 +70,5 @@ export const getDashboard = async (req , res) => {
         .json({success : false , message : "error in getDashboard"})
     }
 }
+
+export default getDashboard

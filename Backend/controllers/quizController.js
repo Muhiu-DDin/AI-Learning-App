@@ -30,7 +30,7 @@ const getQuiz = async (req , res) =>{
     try{
        const quiz = await quizModel.findOne({
             userId : req.user._id , 
-            _id : req.params._id
+            _id : req.params.id
         }).populate("documentId" , "title fileName")
         
         if(!quiz) return res.status(400).json({success : false , message : "quiz not found"})
