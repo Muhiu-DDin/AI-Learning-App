@@ -39,7 +39,7 @@ const  login  = async(req , res)=>{
         return res.status(201).json({
         success: true,
         message: "User login successfully",
-        accessToken , 
+        token : accessToken , 
         userData : user
         });
 
@@ -63,7 +63,7 @@ const  register = async(req , res)=>{
 
        const accessToken =  await generateAccessToken(userCreated._id)
 
-       res.status(201).json({success : true , message : "user created successfully" , accessToken})
+       res.status(201).json({success : true , message : "user created successfully" , token : accessToken})
     
     }catch(error){
         console.error("Error in registering user", error.message);

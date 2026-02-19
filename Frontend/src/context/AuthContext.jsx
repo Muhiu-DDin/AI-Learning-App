@@ -6,24 +6,55 @@ export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [authUser, setAuthUser] = useState(null);
   const [isCheckingAuth , setIsCheckingAuth] = useState(true)
+  const [isAuthenticated , setIsAuthenticated] = useState(false)
 
-  const getAuth =async  () =>{
+  // getAuth() uses for verifying token from backend , while localStorage → to persist token after refresh 
+
+
+  const checkAuthStatus = async()=>{
     try{
-      setIsCheckingAuth(true)
-      const res = await axiosInstance.get("auth/profile")
-      if(res.data.success) setAuthUser(res.data.user)
-      return true
+        setIsCheckingAuth(true)
+        const token = localStorage.getItem('token')
+        const user = localStorage.getItem('user')
+ 
+        if(token && user){
+          setIsAuthenticated(true)
+          const userObj = JSON.parse(user)
+          setAuthUser(userObj)
+        }
+
     }catch(error){
-        console.log("error in getting auth", error.response?.data?.message)
+        console.log("error in checkAuthStatus", error.response?.data?.message)
         setAuthUser(null)
     }finally{
-      setIsCheckingAuth(false)
+        setIsCheckingAuth(false)
     }
   }
 
+  const loginContext = (userData , token)=>{
+      localStorage.setItem('token' , token)
+      localStorage.setItem('user' , JSON.stringify(userData))
+      setAuthUser(userData)
+      setIsAuthenticated(true)
+  }
+
+  const logout = ()=>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    setAuthUser(null)
+    setIsAuthenticated(false)
+    window.location.href = "/"
+  }
+
+  const updateProfileContext = (updatedUserData)=>{
+      localStorage.setItem('user' , JSON.stringify(updatedUserData))
+      setAuthUser(updatedUserData)
+  }
+
+
  
 
-  const value = { authUser , setAuthUser , isCheckingAuth , setIsCheckingAuth , getAuth};
+  const value = { authUser , isCheckingAuth  , isAuthenticated  , checkAuthStatus , loginContext , logout , updateProfileContext};
 
 
   return (

@@ -1,4 +1,3 @@
-import useUser from '../../context/authcontext'
 import AppLayout from "../layout/AppLayout"
 import { Navigate, Outlet } from 'react-router-dom';
 

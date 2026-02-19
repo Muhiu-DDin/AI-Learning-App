@@ -16,11 +16,11 @@ import ProfilePage from "./pages/Profile/ProfilePage"
 
 function App() {
 
-  const {isCheckingAuth , authUser , getAuth} = useUser()
+  const {isCheckingAuth , authUser , checkAuthStatus} = useUser()
 
   useEffect(()=>{
-      getAuth()
-  } , [getAuth])
+      checkAuthStatus()
+  } , [])
 
 
   if (isCheckingAuth && !authUser) {
