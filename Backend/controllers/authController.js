@@ -63,7 +63,7 @@ const  register = async(req , res)=>{
 
        const accessToken =  await generateAccessToken(userCreated._id)
 
-       res.status(201).json({success : true , message : "user created successfully" , token : accessToken})
+       res.status(201).json({success : true , message : "user created successfully" , token : accessToken , userData : userCreated})
     
     }catch(error){
         console.error("Error in registering user", error.message);

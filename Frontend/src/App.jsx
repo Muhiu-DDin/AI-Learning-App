@@ -13,6 +13,8 @@ import FlashCardPage from "./pages/Flashcards/FlashCardPage"
 import QuizResultPage from "./pages/Quizzes/QuizResultPage"
 import QuizTakePage from "./pages/Quizzes/QuizTakePage"
 import ProfilePage from "./pages/Profile/ProfilePage"
+import ProtectedRoute from "./components/auth/ProtectedRoute"
+
 
 function App() {
 
